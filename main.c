@@ -37,6 +37,6 @@ int main(int ac, char **av)
 
 		if (command[0] == '\0')
 			continue; /* skip empty or spaces-only lines */
-		execute_command(command, av[0], line_count); /* run command */
+		execute_command(&command, av[0], line_count); /* run command */
 	}
 }
