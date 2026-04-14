@@ -11,8 +11,6 @@
 int execute_command(char **argv, char *shell_name, unsigned int line_count)
 {
 	pid_t pid;
-	
-	(void)line_count;
 
 	if (argv[0] == NULL)
 		return (-1); /* do nothing if command is empty */
@@ -28,14 +26,14 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 	{
 		if (execve(argv[0], argv, environ) == -1)
 		{
-			fprintf(stderr, "%s: No such file or directory\n",
-					shell_name); /* print error message */
+			fprintf(stderr, "%s: %u: %s: not found\n",
+					shell_name, line_count, argv[0]); /* print error message */
 			exit(127);
 		}
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(pid, NULL, 0);
 	}
 	return (0);
 }
