@@ -37,6 +37,7 @@ int main(int ac, char **av)
 			continue; /* skip empty lines */
 
 		c127 = execute_command(args, av[0], line_count); /* execute command */
-		(void)c127; /* ensures returner isnt 127 and command found */
+		if (c127 == 127) /* ensures returner isnt 127 and command found */
+			;
 	}
 }
