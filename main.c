@@ -14,6 +14,7 @@ int main(int ac, char **av)
 	ssize_t read_chars;
 	unsigned int line_count;
 	int interactive;
+	int status = 0; /* store last command status */
 
 	(void)ac; /* avoid unused parameter warning */
 	line = NULL; /* initialize getline buffer */
@@ -28,7 +29,10 @@ int main(int ac, char **av)
 
 		read_chars = getline(&line, &len, stdin); /* read input line */
 		if (read_chars == -1)
-			handle_eof(line, interactive);
+		{
+			free(line);
+			exit(status); /* exit with last command status */
+		}
 
 		line_count++; /* count every input line */
 		clean_input(line); /* remove trailing newline */
@@ -36,6 +40,6 @@ int main(int ac, char **av)
 		if (parse_input(line, args) == 0)
 			continue; /* skip empty lines */
 
-		execute_command(args, av[0], line_count); /* execute command */
+		status = execute_command(args, av[0], line_count); /* execute command */
 	}
 }
