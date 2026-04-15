@@ -7,7 +7,7 @@
 #include <sys/wait.h>
 #include <string.h>
 
-extern char **environ;
+/* variable called environ somewhere and it stores a list of strings */
 
 void print_prompt(void);
 void handle_eof(char *line, int interactive);
