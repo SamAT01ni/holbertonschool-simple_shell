@@ -16,5 +16,6 @@ void clean_input(char *line);
 int parse_input(char *line, char **argv);
 int execute_command(char **argv, char *shell_name, unsigned int line_count);
 char *find_command(char *comm);
+char *get_path(void);
 
 #endif
