@@ -32,11 +32,13 @@ char *find_command(char *comm)
 
 	if (comm == NULL)
 		return (NULL);
-
-	if (access(comm, X_OK) == 0) /* direct path case */
+	if (strchr(comm, '/')) /* direct path case */
+	{
+		if (access(comm, X_OK) == 0)
 		/* if access is successful, return command */
-		return (comm);
-
+			return (strdup(comm));
+		return (NULL);
+	}
 	path_env = get_path();
 	if (!path_env)
 		return (NULL);
