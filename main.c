@@ -38,6 +38,8 @@ int main(int ac, char **av)
 
 		c127 = execute_command(args, av[0], line_count); /* execute command */
 		if (c127 == 127) /* ensures returner isnt 127 and command found */
+		{
 			;
+		}
 	}
 }
