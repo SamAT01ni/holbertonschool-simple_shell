@@ -14,7 +14,7 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 	char *comm_path;
 	int status = 0;
 
-	if (argv[0] == NULL)
+	if (!argv[0])
 		return (0);
 
 	/**
@@ -34,18 +34,19 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 	{
 		perror("fork"); /* print error if fork fails */
 		free(comm_path);
-		return (-1);
+		return (1);
 	}
 	if (pid == 0)
 	{
-		if (execve(comm_path, argv, environ) == -1) /* accepts ls and /bin/ls */
-		{
-			perror(shell_name); /* execve failure isnt not found */
-			free(comm_path);
-			exit(127);
-		}
+		execve(comm_path, argv, environ);
+		free(comm_path);
+		fprintf(stderr, "%s: %u: %s; not found\n",
+				shell_name, line_count, argv[0]);
+		exit(127);
 	}
-	waitpid(pid, &status, 0);
-	free(comm_path); /* always free your slaves */
-	return (WEXITSTATUS(status)); /* extracts what the exit code is */
+	waitpid(pid, &status, 0); /* status stores the exit code if exit normal */
+	free(comm_path);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status)); /* extracts what the exit code is */
+	return (1); /* shows up an error if WIFEXITED doesnt work */
 }

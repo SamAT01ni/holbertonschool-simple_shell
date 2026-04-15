@@ -13,7 +13,7 @@ int main(int ac, char **av)
 	size_t len;
 	ssize_t read_chars;
 	unsigned int line_count;
-	int interactive, c127;
+	int interactive;
 
 	(void)ac; /* avoid unused parameter warning */
 	line = NULL; /* initialize getline buffer */
@@ -36,10 +36,6 @@ int main(int ac, char **av)
 		if (parse_input(line, args) == 0)
 			continue; /* skip empty lines */
 
-		c127 = execute_command(args, av[0], line_count); /* execute command */
-		if (c127 == 127) /* ensures returner isnt 127 and command found */
-		{
-			;
-		}
+		execute_command(args, av[0], line_count); /* execute command */
 	}
 }
