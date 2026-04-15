@@ -12,9 +12,10 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 {
 	pid_t pid;
 	char *comm_path;
+	int status = 0;
 
 	if (argv[0] == NULL)
-		return (-1); /* do nothing if command is empty */
+		return (0);
 
 	/**
 	 * to not call fork if command doesnt exists, have to place
@@ -25,7 +26,7 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 	{
 		fprintf(stderr, "%s: %u: %s: not found\n",
 				shell_name, line_count, argv[0]);
-		return (-1);
+		return (127);
 	}
 
 	pid = fork(); /* create child process */
@@ -40,10 +41,11 @@ int execute_command(char **argv, char *shell_name, unsigned int line_count)
 		if (execve(comm_path, argv, environ) == -1) /* accepts ls and /bin/ls */
 		{
 			perror(shell_name); /* execve failure isnt not found */
+			free(comm_path);
 			exit(127);
 		}
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 	free(comm_path); /* always free your slaves */
-	return (0);
+	return (WEXITSTATUS(status));
 }
