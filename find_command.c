@@ -1,6 +1,25 @@
 #include "main.h"
 
 /**
+ * get_path - i cant use getpath so ill do it myself
+ *
+ * Return: the directories
+ */
+
+char *get_path(void)
+{
+	int i;
+
+	/* search environment for PATH, returns where the directories are */
+	for (i = 0; environ[i]; i++)
+	{
+		if (strncmp(environ[i], "PATH=", 5) == 0)
+			return (environ[i] + 5); /* location of dirs after colon */
+	}
+	return (NULL);
+}
+
+/**
  * find_command - checks if command exists in path
  * @comm: command
  *
@@ -18,7 +37,7 @@ char *find_command(char *comm)
 		/* if access is successful, return command */
 		return (comm);
 
-	path_env = getenv("PATH"); /* gets PATH from the environment */
+	path_env = get_path();
 	if (!path_env)
 		return (NULL);
 	copy = strdup(path_env); /* so as to not change environ */
