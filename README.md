@@ -81,7 +81,7 @@ argv[3] = "/0"
 ### utils.c
 This contains useful functions to print the prompt, handle the end of file confition (maybe not used) and to clean\_input to remove newline from the input string by replacing with a null byte.
 
-###find\_command.c
+### find\_command.c
 First function gets the path from the environment by strncmp to PATH=.
 
 find\_command first checks for a direct path case with '/' and then duplicates if it exists.
