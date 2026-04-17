@@ -94,6 +94,7 @@ PATH=/usr/bin:/bin
 HOME=/home/user
 USER=user
 ...
+
 This file also contains the built-in exit, etc:
 ```
 (good_boy$) exit
