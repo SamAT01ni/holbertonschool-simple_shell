@@ -59,6 +59,12 @@ because whoever types is very obedient and i guess the shell is too.
 
 Function then reads the line inputted, counts the line, performs some cleanup and asks the child to execute the function. All being well, the child is killed and we return to the _good\_boy$_ prompt.
 
+This file also contains the built-in exit, etc:
+```
+(good_boy$) exit
+```
+This command should exit the interactive shell mode.
+
 ### shell.c
 
 This file has the **execute_command()** function.
