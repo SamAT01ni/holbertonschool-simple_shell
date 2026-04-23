@@ -1,12 +1,13 @@
-SIMPLE_SHELL(1)    User Commands    SIMPLE_SHELL(1)
+.\" Man page for simple shell
+.TH "SIMPLE_SHELL(1)    User Commands    SIMPLE_SHELL(1)"
 
-NAME
+.SH NAME
 hsh - simple UNIX command interpreter
 
-SYNOPSIS
+.SH SYNOPSIS
 ./hsh
 
-DESCRIPTION
+.SH DESCRIPTION
 hsh is a simple UNIX command line interpreter that reads commands
 from standard input and executes them.
 
@@ -24,14 +25,14 @@ The shell handles:
 - Commands with arguments
 - Built-in commands
 
-BUILT-IN COMMANDS
+.SH BUILT-IN COMMANDS
 exit
-Exits the shell.
+	Exits the shell.
 
 env
     Prints the current environment variables.
 
-COMMAND EXECUTION
+.SH COMMAND EXECUTION
 The shell parses user input into tokens and executes commands
 using execve().
 
@@ -39,7 +40,7 @@ Only full path commands are supported (e.g. /bin/ls).
 
 If a command is not found, an error message is displayed.
 
-EXAMPLES
+.SH EXAMPLES
 Interactive mode:
 	$ ./hsh
 	(good_boy$) /bin/ls
@@ -53,16 +54,16 @@ Non-interactive mode:
 Using arguments:
     (good_boy$) /bin/ls /tmp
 
-RETURN VALUE
+.SH RETURN VALUE
 The shell exits with the status of the last executed command.
 
-AUTHORS
-Zac Unknown
+.SH AUTHORS
+Zac Malkoun
 Sam Thompson
 
-SEE ALSO
+.SH SEE ALSO
 sh(1), execve(2), fork(2), wait(2)
 
-NOTES
+.SH NOTES
 - The shell does not handle PATH resolution (unless implemented).
 - The shell does not support pipes, redirection, or advanced features.
